@@ -4,6 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class PromptGeneratorTest extends TestCase {
 
+	// Testa um prompt com requisitos simples e base preenchida
 	public function test_prompt_basico() {
 		$base       = 'Explique como funciona um motor a combustão.';
 		$requisitos = array(
@@ -17,6 +18,7 @@ class PromptGeneratorTest extends TestCase {
 		$this->assertEquals( $esperado, $resultado );
 	}
 
+	// Testa um prompt vazio sem requisitos
 	public function test_prompt_vazio() {
 		$base       = '';
 		$requisitos = array();
@@ -26,6 +28,7 @@ class PromptGeneratorTest extends TestCase {
 		$this->assertEquals( '', $resultado );
 	}
 
+	// Verifica se tags HTML são removidas corretamente do prompt
 	public function test_prompt_html_injetado() {
 		$base       = "<script>alert('xss')</script>";
 		$requisitos = array(

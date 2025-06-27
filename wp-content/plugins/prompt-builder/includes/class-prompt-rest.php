@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../includes/class-prompt-utils.php';
 
 class Prompt_Builder_REST {
+	// Registra as rotas REST da API do plugin
 	public static function register_routes() {
 		register_rest_route(
 			'prompt-builder/v1',
@@ -29,6 +30,7 @@ class Prompt_Builder_REST {
 		);
 	}
 
+	// Processa o corpo do prompt e os requisitos recebidos e retorna o prompt final
 	public static function handle_generate( $request ) {
 		$params = $request->get_json_params();
 
@@ -56,6 +58,7 @@ class Prompt_Builder_REST {
 		);
 	}
 
+	// Cria um novo post do tipo rascunho com o conteúdo do prompt
 	public static function create_draft_post( $request ) {
 		$params  = $request->get_json_params();
 		$content = sanitize_textarea_field( $params['content'] ?? '' );

@@ -1,6 +1,7 @@
 <?php
 
 class Prompt_Builder_Utils {
+	// Monta o prompt final a partir do texto base e dos requisitos
 	public static function gerar_prompt( string $base, array $requisitos ): string {
 		$base   = trim( strip_tags( $base ) );
 		$linhas = array( $base );

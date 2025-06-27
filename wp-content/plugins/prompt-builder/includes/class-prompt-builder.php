@@ -1,6 +1,7 @@
 <?php
 
 class Prompt_Builder {
+	// Inicializa hooks e rotas REST
 	public function init() {
 		add_action( 'admin_menu', array( $this, 'register_admin_page' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
@@ -8,6 +9,7 @@ class Prompt_Builder {
 		add_action( 'rest_api_init', array( 'Prompt_Builder_REST', 'register_routes' ) );
 	}
 
+	// Registra a página no menu de ferramentas do admin
 	public function register_admin_page() {
 		add_submenu_page(
 			'tools.php',
@@ -19,10 +21,12 @@ class Prompt_Builder {
 		);
 	}
 
+	// Carrega o conteúdo da página do plugin
 	public function render_admin_page() {
 		include plugin_dir_path( __DIR__ ) . 'admin/prompt-builder-page.php';
 	}
 
+	// Adiciona os estilos e scripts da interface do plugin
 	public function enqueue_assets( $hook ) {
 		if ( strpos( $hook, 'prompt-builder' ) === false ) {
 			return;

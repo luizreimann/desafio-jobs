@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
    const requisitosContainer = document.getElementById('pb-requisitos-container');
    const resultadoTextarea = document.getElementById('pb-prompt-gerado');
 
-  // Adiciona campo de requisito
+   // Cria uma nova linha de requisito com campos de chave e valor
    function addRequisitoRow(key = '', value = '') {
    const row = document.createElement('div');
    row.className = 'row g-2 align-items-center mb-2';
@@ -21,12 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
    requisitosContainer.appendChild(row);
    }
 
-   // Evento: adicionar novo requisito
+   // Adiciona uma nova linha ao clicar em "Adicionar requisito"
    document.getElementById('pb-add-requisito').addEventListener('click', () => {
       addRequisitoRow();
    });
 
-   // Evento: remover requisito
+   // Remove uma linha de requisito ao clicar em "Remover"
    requisitosContainer.addEventListener('click', (e) => {
       if (e.target.classList.contains('remove-requisito')) {
          const row = e.target.closest('.row');
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
    });
 
-   // Evento: submit do formulário
+   // Envia os dados para gerar o prompt via REST API
    form.addEventListener('submit', (e) => {
          e.preventDefault();
 
@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
    });
 
+   // Envia o prompt gerado para criar um post rascunho via REST API
    document.getElementById('pb-create-draft').addEventListener('click', () => {
       const content = document.getElementById('pb-prompt-gerado').value;
 
