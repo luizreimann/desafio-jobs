@@ -1,0 +1,1 @@
+{"version":1,"defects":{"PromptGeneratorTest::test_prompt_basico":4,"PromptGeneratorTest::test_prompt_vazio":4,"PromptGeneratorTest::test_prompt_html_injetado":4},"times":{"PromptGeneratorTest::test_prompt_basico":0.004,"PromptGeneratorTest::test_prompt_vazio":0,"PromptGeneratorTest::test_prompt_html_injetado":0.001}}
