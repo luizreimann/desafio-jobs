@@ -1,0 +1,41 @@
+<?php
+
+class Prompt_Builder {
+    public function init() {
+        add_action('admin_menu', [$this, 'register_admin_page']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_assets']);
+        require_once plugin_dir_path(__FILE__) . 'class-prompt-rest.php';
+        add_action('rest_api_init', ['Prompt_Builder_REST', 'register_routes']);
+    }
+
+    public function register_admin_page() {
+        add_submenu_page(
+            'tools.php',
+            __('Prompt Builder', 'prompt-builder'),
+            __('Prompt Builder', 'prompt-builder'),
+            'manage_options',
+            'prompt-builder',
+            [$this, 'render_admin_page']
+        );
+    }
+
+    public function render_admin_page() {
+        include plugin_dir_path(__DIR__) . 'admin/prompt-builder-page.php';
+    }
+
+    public function enqueue_assets($hook) {
+        if (strpos($hook, 'prompt-builder') === false) return;
+
+        wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css');
+        wp_enqueue_style('prompt-builder-css', plugin_dir_url(__DIR__) . 'assets/css/admin.css');
+
+        wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js', [], null, true);
+        wp_enqueue_script('prompt-builder-js', plugin_dir_url(__DIR__) . 'assets/js/admin.js', [], false, true);
+
+        wp_localize_script('prompt-builder-js', 'PB_VARS', [
+            'nonce'   => wp_create_nonce('wp_rest'),
+            'restUrl' => esc_url_raw(rest_url('prompt-builder/v1/generate')),
+            'restUrlDraft' => esc_url_raw(rest_url('prompt-builder/v1/create-draft')),
+        ]);
+    }
+}
